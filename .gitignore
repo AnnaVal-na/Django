@@ -1,0 +1,27 @@
+# IDE
+.idea/
+.vscode/
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Database
+*.sqlite3
+*.db
+
+# Static and media (если не хотите коммитить)
+static/
+media/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
