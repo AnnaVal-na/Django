@@ -1,0 +1,28 @@
+﻿[
+{
+  "model": "catalog.product",
+  "pk": 1,
+  "fields": {
+    "name": "╤ьрЁЄЇюэ",
+    "description": "═ют√щ Їыруьрэ",
+    "image": "",
+    "category": 1,
+    "price": "25999.99",
+    "created_at": "2025-07-14T14:46:38.796Z",
+    "updated_at": "2025-07-14T14:53:42.956Z"
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 3,
+  "fields": {
+    "name": "Python фы  эрўшэр■∙шї",
+    "description": null,
+    "image": "",
+    "category": 2,
+    "price": "1500.00",
+    "created_at": "2025-07-14T14:47:03.550Z",
+    "updated_at": "2025-07-14T14:47:03.550Z"
+  }
+}
+]
