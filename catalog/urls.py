@@ -1,9 +1,9 @@
 from django.urls import path
-from catalog.views import home, contacts
+from . import views
 
-app_name = 'catalog'
+app_name = 'catalog'  # ← Добавьте эту строку
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('contacts/', contacts, name='contacts'),
+    path('', views.home, name='home'),
+    path('product/<int:pk>/', views.product_detail, name='product_detail'),
 ]
