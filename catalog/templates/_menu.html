@@ -1,8 +1,6 @@
-{% extends "base.html" %}
-{% load static %}
 <nav class="menu">
   <ul>
-    <li><a href="{% url 'home' %}">Главная</a></li>
-    <li><a href="{% url 'contacts' %}">Контакты</a></li>
+    <li><a href="{% url 'catalog:home' %}">Главная</a></li>
+    <li><a href="{% url 'catalog:contacts' %}">Контакты</a></li>
   </ul>
 </nav>
