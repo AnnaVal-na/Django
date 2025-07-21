@@ -1,0 +1,32 @@
+{% extends "blog/base_blog.html" %}
+
+{% block blog_content %}
+<h1 class="mb-4">Блоговые записи</h1>
+
+{% if posts %}
+    {% for post in posts %}
+    <div class="card mb-4">
+        {% if post.preview %}
+        <img src="{{ post.preview.url }}" class="card-img-top" alt="{{ post.title }}">
+        {% endif %}
+
+        <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="text-muted">
+                Опубликовано: {{ post.created_at|date:"d.m.Y H:i" }} |
+                Просмотров: {{ post.views_count }}
+            </p>
+            <p class="card-text">{{ post.content|truncatechars:200 }}</p>
+            <a href="{% url 'blog:detail' post.pk %}" class="btn btn-primary">Читать далее</a>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-info">
+        Пока нет ни одной записи в блоге.
+    </div>
+{% endif %}
+{% endblock %}
+
+<div class="card mb-4 blog-post-card">
+    <img src="{{ post.preview.url }}" class="card-img-top blog-post-image" alt="{{ post.title }}">

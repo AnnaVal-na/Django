@@ -1,0 +1,41 @@
+{% extends "blog/base_blog.html" %}
+
+{% block blog_content %}
+<div class="card">
+    {% if object.preview %}
+    <img src="{{ object.preview.url }}" class="card-img-top" alt="{{ object.title }}">
+    {% endif %}
+    
+    <div class="card-body">
+        <h1 class="card-title">{{ object.title }}</h1>
+        <p class="text-muted">
+            Опубликовано: {{ object.created_at|date:"d.m.Y H:i" }} | 
+            Просмотров: {{ object.views_count }}
+        </p>
+        <div class="card-text">
+            {{ object.content|linebreaks }}
+        </div>
+    </div>
+    
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'blog:list' %}" class="btn btn-secondary">
+                ← Назад к списку
+            </a>
+            <div>
+                <a href="{% url 'blog:update' object.pk %}" class="btn btn-warning">
+                    Редактировать
+                </a>
+                <a href="{% url 'blog:delete' object.pk %}" class="btn btn-danger">
+                    Удалить
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<img src="{{ object.preview.url }}" class="card-img-top blog-detail-image" alt="{{ object.title }}">
+<div class="blog-meta">
+    Опубликовано: {{ object.created_at|date:"d.m.Y H:i" }} |
+    Просмотров: {{ object.views_count }}
+</div>

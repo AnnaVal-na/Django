@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            {% block blog_content %}
+            <!-- Содержимое страниц блога будет здесь -->
+            {% endblock %}
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Действия</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'blog:create' %}" class="btn btn-success btn-block mb-2">
+                        Создать новую запись
+                    </a>
+                    <a href="{% url 'blog:list' %}" class="btn btn-primary btn-block">
+                        Все записи
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
