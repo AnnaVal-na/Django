@@ -26,7 +26,8 @@ INSTALLED_APPS: list[str] = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog',
-    'blog'
+    'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -107,3 +108,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+AUTH_USER_MODEL = 'users.User'
+
+# Настройки почты (для примера — Yandex)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'Anyutik100@yandex.ru'
+EMAIL_HOST_PASSWORD = 'mhstwfbyqgchptyr'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LOGIN_URL = '/auth/login/'  # Глобальный URL для перенаправления
