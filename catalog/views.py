@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Product
 from .forms import ProductForm
-
+from django.core.exceptions import PermissionDenied
 
 # Публичные представления (доступны всем)
 class HomeView(ListView):
@@ -67,4 +67,4 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
             raise PermissionDenied("Вы не можете удалить этот продукт")
         return super().dispatch(request, *args, **kwargs)
 
-from django.core.exceptions import PermissionDenied
+
