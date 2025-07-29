@@ -16,8 +16,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
 INSTALLED_APPS: list[str] = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -107,8 +105,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 AUTH_USER_MODEL = 'users.User'
 
 # Настройки почты (для примера — Yandex)
@@ -117,8 +113,9 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'Anyutik100@yandex.ru'
-EMAIL_HOST_PASSWORD = 'mhstwfbyqgchptyr'
+EMAIL_HOST_USER = os.getenv('Anyutik100@yandex.ru')
+EMAIL_HOST_PASSWORD = os.getenv('mhstwfbyqgchptyr')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = '/auth/login/'
 
-LOGIN_URL = '/auth/login/'  # Глобальный URL для перенаправления

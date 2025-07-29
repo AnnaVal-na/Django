@@ -67,3 +67,4 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
             raise PermissionDenied("Вы не можете удалить этот продукт")
         return super().dispatch(request, *args, **kwargs)
 
+from django.core.exceptions import PermissionDenied
