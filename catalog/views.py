@@ -4,12 +4,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from .models import Product
 from .forms import ProductForm
-
+from django.views.decorators.cache import cache_page
+from .services import get_products_by_category
+from .services import get_all_products
 
 class HomeView(ListView):
-    model = Product
     template_name = 'home.html'
     context_object_name = 'products'
+
+
+    def get_queryset(self):
+        return get_all_products()
+
 
     def get_queryset(self):
         """Только опубликованные продукты"""
@@ -18,7 +24,11 @@ class HomeView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
-    template_name = 'product_detail.html'
+    template_name = 'catalog/product_detail.html'
+
+    @method_decorator(cache_page(60 * 15))  # Кеш на 15 минут
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 
 class ContactsView(TemplateView):
@@ -31,6 +41,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('catalog:home')
     login_url = '/auth/login/'
+
 
     def form_valid(self, form):
         """Автоматическое назначение владельца"""
@@ -45,8 +56,10 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'catalog/product_form.html'
     login_url = '/auth/login/'
 
+
     def get_success_url(self):
         return reverse_lazy('catalog:product_detail', kwargs={'pk': self.object.pk})
+
 
     def dispatch(self, request, *args, **kwargs):
         """Проверка прав: владелец или модератор"""
@@ -63,6 +76,7 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('catalog:home')
     login_url = '/auth/login/'
 
+
     def dispatch(self, request, *args, **kwargs):
         """Проверка прав: владелец или модератор"""
         product = self.get_object()
@@ -70,3 +84,12 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
                 request.user.has_perm('catalog.delete_product')):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+
+class CategoryProductsView(ListView):
+    template_name = 'catalog/category_products.html'
+    context_object_name = 'products'
+
+
+    def get_queryset(self):
+        return get_products_by_category(self.kwargs['category_id'])
