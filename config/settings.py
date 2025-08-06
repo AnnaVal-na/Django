@@ -113,4 +113,21 @@ LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = '/auth/login/'
 
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+    }
+}
+
+CACHE_ENABLED = os.getenv('CACHE_ENABLED', 'False') == 'True'
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/1",
+            "TIMEOUT": 300  # 5 минут кеширования
+        }
+    }
 
